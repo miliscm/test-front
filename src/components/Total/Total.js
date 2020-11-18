@@ -3,19 +3,23 @@ import {Container, Lista} from './styles'
 import api from "../../services/api"
 
 const Total = () => {
-  const [error, setError] = useState(null);
+  const totalValuesFromStorage = JSON.parse(localStorage.getItem('totalValues') || []) 
   
-  const [total, setTotal] = useState([]);
-  const [discount, setDiscount] = useState([]);
-  const [shipping, setShipping] = useState([]);
-  const [subTotal, setSubTotal] = useState([]);
+  const [error, setError] = useState(null);
+  const [total, setTotal] = useState(totalValuesFromStorage.total);
+  const [discount, setDiscount] = useState(totalValuesFromStorage.discount);
+  const [shipping, setShipping] = useState(totalValuesFromStorage.shipping);
+  const [subTotal, setSubTotal] = useState(totalValuesFromStorage.subTotal);
   const sinalNegativo = "-";  
   
   function currency(value){
     return  new Intl.NumberFormat('pt-BR', {
        style:"currency", currency:'BRL'}).format(value)
    }
-  
+  useEffect(()=>{
+     localStorage.setItem('totalValues',JSON.stringify({total,discount,shipping,subTotal}))
+   },[total,discount,shipping,subTotal])
+   
   
   useEffect(()=>{
     api.get('5b15c4923100004a006f3c07').then(res => {

@@ -1,8 +1,8 @@
 import React from 'react';
 import {Container, ButtonPay} from "./styles"
-import Total from"../Total"
-import { Title, Section } from "../styles"
-import CartList from "../CartList"
+import Total from"../../components/Total/Total"
+import { Title, Section } from "../../components/styles"
+import CartList from "../../components/CartList/CardList"
 
 function Cart() {
   
@@ -18,9 +18,8 @@ function Cart() {
      </Container>    
      <Total />  
      <ButtonPay type="button" href={"/payment"}>
-          <p>{messageButton}</p>       
-       </ButtonPay>       
-      
+        <p>{messageButton}</p>       
+       </ButtonPay>      
      </Section>
     );
   }

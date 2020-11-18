@@ -1,24 +1,27 @@
 import React,{useEffect, useState} from 'react'
-import {Border, ImgContainer, ProductDesc} from "../Cart/styles"
+import {Border, ImgContainer, ProductDesc} from "../../pages/Cart/styles"
 import api from "../../services/api"
 
 const CartList = () => {
-
+  const itemsTolocalStorage =JSON.parse(localStorage.getItem('data') || "[]");
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(itemsTolocalStorage);
   
   function currency(value){
    return  new Intl.NumberFormat('pt-BR', {
       style:"currency", currency:'BRL'}).format(value)
-  }
- 
+  }  
   
+    useEffect(()=>{
+      localStorage.setItem('card', JSON.stringify(items))
+    },[items])
+
     useEffect(() => {
       api.get('5b15c4923100004a006f3c07').then(res => {
           setIsLoaded(true);
           setItems(res.data.items);            
-                       
+          
         },
         
         (error) => {
