@@ -15,7 +15,7 @@ const Confirmation = (props) => {
       <Img src={img} alt="compra efetuada com sucesso"/>
      <Title>Pagamento</Title>
          <DivConf>
-         <p>{`••••-••••-••••-${cardNumber.slice(-4)}`}</p> 
+         <p>{`****.****.****.${cardNumber.slice(-4)}`}</p> 
           <p>{nameCard}</p>
           <p>{expiry}</p>       
           

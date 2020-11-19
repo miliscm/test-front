@@ -1,23 +1,18 @@
-import React, {useState, useEffect}  from 'react'
+import React, {useState}  from 'react'
 import { Title, Section } from "../styles"
 import {ButtonConfirmation, FormPay, InputForm, LabelForm, DivForm, FormBack, Span} from "./styles"
 import Total from"../Total/Total"
 import { useHistory } from "react-router-dom";
 
-
-
-const Payment = () => {  
+const Payment = () => {    
  
 const history = useHistory();
 const messageButton = 'Finalizar o pedido';
-
-// const cardNumberFromLocalStorage = JSON.parse(localStorage.getItem('cardNumber') || "")
 
 const [cardNumber, setCardNumber]=useState('');
 const [nameCard, setNameCard]= useState('');
 const [expiry, setExpiry]=useState('');
 const [cvvNumber, setCvvNumber]=useState('');
-
 const[cardNumberInValid, setcardNumberInValid]=useState("");
 const[nameCardInValid, setnameCardInValid]=useState("");
 const[expiryInValid, setexpiryInValid]=useState("");
@@ -57,7 +52,7 @@ function validatorExpiryDate(e){
     const month = currentDate.slice(0,2)
     const year = currentDate.slice(3,7) 
     
-    if(currentDate.length == 7 && currentDate.match(/^(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/)) {              
+    if(currentDate.length === 7 && currentDate.match(/^(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/)) {              
 
         if(  
           (year>=today.getFullYear() && month >= today.getMonth()+1)
@@ -80,9 +75,9 @@ function validatorExpiryDate(e){
 }
 
 function handleConfirmation(e){    
-  e.preventDefault();
-  
-   history.push({pathname:"/confirmation",state:arrayInfoUser});
+  e.preventDefault();  
+  window.location.replace("/confirmation");
+  history.push({pathname:"/confirmation",state:arrayInfoUser});
  
 }
   return (
@@ -106,15 +101,8 @@ function handleConfirmation(e){
         placeholder="____.____.____.____" onChange={(e)=>{
           
           validatorCardNumber(e)
-        }       
-          // (e) => {
-          // setCardNumber(e.target.value)          
-          // if((cardNumber === "" || cardNumber.length <15)){
-          //   setcardNumberInValid("campo inválido")}
-          //   else{
-          //     setcardNumberInValid('');
-          //   }                                 
-          //   }
+        }      
+        
           }
 
             />
@@ -150,15 +138,7 @@ function handleConfirmation(e){
         maxLength="7" 
         type="text" 
         placeholder="__/____" onChange={(e)=> validatorExpiryDate(e)
-          // (e) => {
-          //     setExpiry(e.target.value)
-          //     if(expiry === "" || expiry.length <5){
-          //       setexpiryInValid("campo inválido")}
-          //       else{
-          //         setexpiryInValid('');
-          //       }             
          
-          //   }
             }/>
              
         <InputForm 
@@ -180,8 +160,14 @@ function handleConfirmation(e){
         </FormBack>
         
       <Section>  
-            <Total />          
-            <ButtonConfirmation path={"/confirmation"} type="submit" on>
+            <Total /> 
+                     
+            <ButtonConfirmation 
+            
+            path={"/confirmation"} 
+            
+            
+            type="submit" on>
               <p>{messageButton}</p>
             </ButtonConfirmation>
             

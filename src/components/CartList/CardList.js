@@ -1,46 +1,18 @@
-import React,{useEffect, useState} from 'react'
+import React from 'react'
 import {Border, ImgContainer, ProductDesc} from "../../pages/Cart/styles"
-import api from "../../services/api"
+
 
 const CartList = () => {
-  const itemsTolocalStorage =JSON.parse(localStorage.getItem('data') || "[]");
-  const [error, setError] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [items, setItems] = useState(itemsTolocalStorage);
-  
+  const itemsTolocalStorage =JSON.parse(localStorage.getItem('cardItens') || "[]");
+    
   function currency(value){
    return  new Intl.NumberFormat('pt-BR', {
       style:"currency", currency:'BRL'}).format(value)
-  }  
-  
-    useEffect(()=>{
-      localStorage.setItem('card', JSON.stringify(items))
-    },[items])
-
-    useEffect(() => {
-      api.get('5b15c4923100004a006f3c07').then(res => {
-          setIsLoaded(true);
-          setItems(res.data.items);            
-          
-        },
-        
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
-        }
-      )
-  }, [])
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  } else if (!isLoaded) {
-    return <div>Loading...</div>;
-
-  } else {
+  }     
     
   return (
     <>
-    {items.map(item => (
+    {itemsTolocalStorage.map(item => (
       <Border key={item.product.sku}>
        <ImgContainer>
         <img src={item.product.imageObjects[0].small} alt={item.product.name}/>
@@ -54,5 +26,5 @@ const CartList = () => {
     </>
   )
 }
-}
+
 export default CartList

@@ -70,8 +70,7 @@ export const InputForm = styled.input`
       }   
       &:focus:invalid{
         border: 1px solid #F30;
-      }
-      
+      }   
      
 
 `;
